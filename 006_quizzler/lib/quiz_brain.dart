@@ -39,9 +39,16 @@ class QuizBrain {
     return _questionBank[_questionNumber].questionAnswer;
   }
 
-  void nextQuestion() {
+  bool nextQuestion() {
     if (_questionNumber < _questionBank.length - 1) {
       _questionNumber++;
+      return true;
+    } else {
+      return false;
     }
+  }
+
+  void resetQuiz() {
+    _questionNumber = 0;
   }
 }

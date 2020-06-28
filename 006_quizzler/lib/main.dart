@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 import 'quiz_brain.dart';
 
@@ -56,7 +57,34 @@ class _QuizPageState extends State<QuizPage> {
         print('User got it wrong');
       }
 
-      quizBrain.nextQuestion();
+      bool nextAnswerAvailable = quizBrain.nextQuestion();
+
+      if (!nextAnswerAvailable) {
+        Alert(
+          context: context,
+          type: AlertType.info,
+          title: 'Finished!',
+          desc: 'You\'ve reached the end of the quiz.',
+          buttons: [
+            DialogButton(
+              child: Text(
+                'CANCEL',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+              onPressed: () {
+                setState(() {
+                  scoreKeeper = [];
+                  quizBrain.resetQuiz();
+                  Navigator.pop(context);
+                });
+              },
+            ),
+          ],
+        ).show();
+      }
     });
   }
 
