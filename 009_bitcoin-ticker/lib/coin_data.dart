@@ -1,3 +1,5 @@
+import 'networking.dart';
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -28,4 +30,15 @@ const List<String> cryptoList = [
   'LTC',
 ];
 
-class CoinData {}
+class CoinData {
+  String coin;
+
+  CoinData({this.coin});
+
+  Future<dynamic> getCurrencyData(String currency) async {
+    NetworkHelper network = NetworkHelper();
+
+    var coinData = await network.getData(coin, currency);
+    return coinData;
+  }
+}
